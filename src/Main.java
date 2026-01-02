@@ -45,8 +45,6 @@ public class Main {
                     System.out.println("Please enter the id of the product would you like to delete?: ");
                     int productToDelete = scanner.nextInt();
                     manager.deleteProduct(productToDelete);
-
-                    System.out.println("product has been deleted successfully");
                     break;
                 case 3:
                     manager.showAllProducts();

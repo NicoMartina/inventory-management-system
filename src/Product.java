@@ -7,6 +7,18 @@ public class Product {
     private final int id;
 
     public Product(String name, double price, int quantity, String category) {
+        if ( name == null || name.trim().isEmpty()){
+            throw new IllegalArgumentException("Product name cannot be empty");
+        }
+        if (price < 0){
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
+        if (quantity < 0){
+            throw new IllegalArgumentException("Quantity cannot be less than 0");
+        }
+        if (category == null || category.trim().isEmpty()){
+            throw new IllegalArgumentException("Category cannot be empty");
+        }
         this.id = nextId++;
         this.name = name;
         this.price = price;

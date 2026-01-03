@@ -7,6 +7,7 @@ public class Main {
         Manager manager = new Manager();
         int option = 0;
 
+        manager.loadFromFile();
         while (option != 5){
             System.out.println("==== Inventory Management ====");
             System.out.println("1. Add Product");
@@ -39,7 +40,6 @@ public class Main {
                     String productCategory = scanner.nextLine();
 
                     manager.addProduct(productName,productPrice,productQuantity,productCategory);
-                    System.out.println("Product added successfully");
                     break;
                 case 2:
                     System.out.println("Please enter the id of the product would you like to delete?: ");
@@ -55,6 +55,7 @@ public class Main {
                     manager.searchProduct(productLookUp);
                     break;
                 case 5:
+                    manager.saveToFile();
                     System.out.println("Good bye!");
                     break;
 

@@ -10,9 +10,14 @@ public class Manager {
     ArrayList<Product> products  = new ArrayList<>();
 
     public void addProduct(String name, double price, int quantity, String category){
-        Product product = new Product(name, price, quantity, category);
-        products.add(product);
-        System.out.println("Product added successfully.");
+        try {
+            Product product = new Product(name, price, quantity, category);
+            products.add(product);
+            System.out.println("Product added successfully.");
+        } catch (IllegalArgumentException e){
+            System.out.println("cannot add product: " + e.getMessage());
+        }
+
     }
 
     public void deleteProduct(int id){
@@ -79,7 +84,7 @@ public class Manager {
         try {
             FileWriter writer = new FileWriter("products.txt");
             for (Product p : products){
-                writer.write(p.getId() + "," + p.getName() + "," + p.getPrice() + "," + p.getQuantity() + "," + p.getCategory());
+                writer.write(p.getId() + "," + p.getName() + "," + p.getPrice() + "," + p.getQuantity() + "," + p.getCategory() + "\n");
             }
             writer.close();
             System.out.println("Products saved successfully");
@@ -91,19 +96,21 @@ public class Manager {
     public void loadFromFile(){
         try {
             File file = new File("products.txt");
-            if (file.exists()){
+            if (!file.exists()){
                 return;
             }
             Scanner scanner = new Scanner(file);
              while (scanner.hasNextLine()){
                  String line = scanner.nextLine();
                  String[] parts = line.split(",");
+                 System.out.println("DEBUG: parts.length = " + parts.length);  // <- Add this
+                 System.out.println("DEBUG: line = " + line);                   // <- And this
                  if (parts.length == 5){
                      String productId = parts[0];
                      String productName = parts[1];
-                     String productPriceStr = parts[1];
-                     String productQuantityStr = parts[1];
-                     String productCategory = parts[1];
+                     String productPriceStr = parts[2];
+                     String productQuantityStr = parts[3];
+                     String productCategory = parts[4];
 
                      double productPrice = Double.parseDouble(productPriceStr);
                      int productQuantity = Integer.parseInt(productQuantityStr);
